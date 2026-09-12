@@ -1,4 +1,3 @@
-/// <reference types="@cloudflare/workers-types" />
 import { Hono } from 'hono';
 
 export interface Env {
