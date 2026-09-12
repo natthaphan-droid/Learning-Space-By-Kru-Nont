@@ -69,8 +69,17 @@ INSERT INTO chapters (id, grade_id, title, type, order_index) VALUES ('ch1', 'g4
 INSERT INTO chapters (id, grade_id, title, type, order_index) VALUES ('ch2', 'g4', 'ตรรกศาสตร์', 'additional', 2);
 
 -- หัวข้อย่อย บทที่ 1 เซต
-INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_1', 'ch1', '1.1 ความหมายและสัญลักษณ์ของเซต', 1, '/content/m4/set/1.1.md');
-INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_2', 'ch1', '1.2 การดำเนินการระหว่างเซต', 2, '/content/m4/set/1.2.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_1', 'ch1', '1.1 ทำความรู้จักกับเซต', 1, '/content/m4/set/1.1.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_2', 'ch1', '1.2 วิธีการเขียนเซต', 2, '/content/m4/set/1.2.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_3', 'ch1', '1.3 ชนิดของเซต', 3, '/content/m4/set/1.3.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_4', 'ch1', '1.4 การเปรียบเทียบเซต', 4, '/content/m4/set/1.4.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_5', 'ch1', '1.5 สับเซต (Subset)', 5, '/content/m4/set/1.5.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_6', 'ch1', '1.6 เพาเวอร์เซต (Power Set)', 6, '/content/m4/set/1.6.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_7', 'ch1', '1.7 แผนภาพเวนน์-ออยเลอร์', 7, '/content/m4/set/1.7.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_8', 'ch1', '1.8 ยูเนียน & อินเตอร์เซกชัน', 8, '/content/m4/set/1.8.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_9', 'ch1', '1.9 คอมพลีเมนต์ & ผลต่าง', 9, '/content/m4/set/1.9.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_10', 'ch1', '1.10 การหาจำนวนสมาชิก (2 วง)', 10, '/content/m4/set/1.10.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_11', 'ch1', '1.11 การหาจำนวนสมาชิก (3 วง)', 11, '/content/m4/set/1.11.md');
 
 -- หัวข้อย่อย บทที่ 2 ตรรกศาสตร์
 INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t2_1', 'ch2', '2.1 ประพจน์และตัวเชื่อม', 1, '/content/m4/logic/2.1.md');

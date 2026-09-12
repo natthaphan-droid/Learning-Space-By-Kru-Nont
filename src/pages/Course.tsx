@@ -12,8 +12,17 @@ export default function Course() {
 
   // Mock topic data matching new schema
   const topics: Record<string, any> = {
-    't1_1': { id: 't1_1', title: '1.1 ความหมายและสัญลักษณ์', type: 'basic', content_url: '/content/m4/set/1.1.md' },
-    't1_2': { id: 't1_2', title: '1.2 การดำเนินการระหว่างเซต', type: 'basic', content_url: '/content/m4/set/1.2.md' },
+    't1_1': { id: 't1_1', title: '1.1 ทำความรู้จักกับเซต', type: 'basic', content_url: '/content/m4/set/1.1.md' },
+    't1_2': { id: 't1_2', title: '1.2 วิธีการเขียนเซต', type: 'basic', content_url: '/content/m4/set/1.2.md' },
+    't1_3': { id: 't1_3', title: '1.3 ชนิดของเซต', type: 'basic', content_url: '/content/m4/set/1.3.md' },
+    't1_4': { id: 't1_4', title: '1.4 การเปรียบเทียบเซต', type: 'basic', content_url: '/content/m4/set/1.4.md' },
+    't1_5': { id: 't1_5', title: '1.5 สับเซต (Subset)', type: 'basic', content_url: '/content/m4/set/1.5.md' },
+    't1_6': { id: 't1_6', title: '1.6 เพาเวอร์เซต (Power Set)', type: 'basic', content_url: '/content/m4/set/1.6.md' },
+    't1_7': { id: 't1_7', title: '1.7 แผนภาพเวนน์-ออยเลอร์', type: 'basic', content_url: '/content/m4/set/1.7.md' },
+    't1_8': { id: 't1_8', title: '1.8 ยูเนียน & อินเตอร์เซกชัน', type: 'basic', content_url: '/content/m4/set/1.8.md' },
+    't1_9': { id: 't1_9', title: '1.9 คอมพลีเมนต์ & ผลต่าง', type: 'basic', content_url: '/content/m4/set/1.9.md' },
+    't1_10': { id: 't1_10', title: '1.10 การหาจำนวนสมาชิก (2 วง)', type: 'basic', content_url: '/content/m4/set/1.10.md' },
+    't1_11': { id: 't1_11', title: '1.11 การหาจำนวนสมาชิก (3 วง)', type: 'basic', content_url: '/content/m4/set/1.11.md' },
     't2_1': { id: 't2_1', title: '2.1 ประพจน์และตัวเชื่อม', type: 'additional', content_url: '/content/m4/logic/2.1.md' },
     't2_2': { id: 't2_2', title: '2.2 สัจนิรันดร์', type: 'additional', content_url: '/content/m4/logic/2.2.md' }
   };
