@@ -1,12 +1,16 @@
 name = "mathmallow"
 compatibility_date = "2024-03-20"
-pages_build_output_dir = "dist"
+main = "src/worker.ts"
+
+[assets]
+directory = "dist"
+binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "mathmallow-db"
-database_id = "local-dev-id"
+database_id = "f1e04ada-d074-482d-a79b-78347717ab42"
 
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "mathmallow-bucket"
+[[kv_namespaces]]
+binding = "KV"
+id = "4364cae1a1c54f74a8bd5a881965a970"
