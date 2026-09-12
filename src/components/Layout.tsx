@@ -58,7 +58,8 @@ export default function Layout({ user, onLogout }: LayoutProps) {
           </button>
           <Link to="/" className="text-xl font-bold text-mallow-pink flex items-center gap-2">
             <BookOpen className="text-pink-400" size={24} />
-            <span className="text-gray-800 hidden sm:inline">MathMallow</span>
+            <span className="text-gray-800 hidden sm:inline">Learning Space</span>
+            <span className="text-sm font-normal text-gray-500 hidden sm:inline">by KruNont</span>
           </Link>
         </div>
         

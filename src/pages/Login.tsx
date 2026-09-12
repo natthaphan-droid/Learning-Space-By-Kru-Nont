@@ -36,8 +36,8 @@ export default function Login({ onLogin }: LoginProps) {
           <div className="bg-pink-50 p-4 rounded-full mb-4">
             <BookOpen className="text-pink-400" size={48} />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800">MathMallow</h1>
-          <p className="text-gray-500 mt-2">เข้าสู่ระบบเพื่อเรียนคณิตศาสตร์ออนไลน์</p>
+          <h1 className="text-3xl font-bold text-gray-800">Learning Space</h1>
+          <p className="text-gray-500 mt-2">by KruNont</p>
         </div>
 
         {error && (
