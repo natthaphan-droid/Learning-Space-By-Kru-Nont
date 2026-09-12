@@ -8,6 +8,7 @@ import Tasks from './pages/Tasks';
 import Grades from './pages/Grades';
 import Learn from './pages/Learn';
 import Contact from './pages/Contact';
+import Worksheet from './pages/Worksheet';
 import Admin from './pages/Admin';
 import Layout from './components/Layout';
 
@@ -20,6 +21,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login onLogin={setUser} />} />
+        
+        <Route path="/worksheet/:id" element={<Worksheet />} />
         
         {/* Protected Student Routes */}
         <Route path="/" element={user ? <Layout user={user} onLogout={() => setUser(null)} /> : <Navigate to="/login" />}>
