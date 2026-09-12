@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS submissions;
 DROP TABLE IF EXISTS assignments;
-DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS topics;
+DROP TABLE IF EXISTS chapters;
+DROP TABLE IF EXISTS grades;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -11,20 +13,37 @@ CREATE TABLE users (
   role TEXT NOT NULL DEFAULT 'student'
 );
 
-CREATE TABLE courses (
+CREATE TABLE grades (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
-  type TEXT NOT NULL,
-  aksorn_url TEXT
+  order_index INTEGER NOT NULL
+);
+
+CREATE TABLE chapters (
+  id TEXT PRIMARY KEY,
+  grade_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  type TEXT NOT NULL, -- 'basic', 'additional'
+  order_index INTEGER NOT NULL,
+  FOREIGN KEY (grade_id) REFERENCES grades(id)
+);
+
+CREATE TABLE topics (
+  id TEXT PRIMARY KEY,
+  chapter_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  order_index INTEGER NOT NULL,
+  content_url TEXT,
+  FOREIGN KEY (chapter_id) REFERENCES chapters(id)
 );
 
 CREATE TABLE assignments (
   id TEXT PRIMARY KEY,
-  course_id TEXT NOT NULL,
+  topic_id TEXT NOT NULL,
   title TEXT NOT NULL,
   description TEXT,
   due_date DATETIME,
-  FOREIGN KEY (course_id) REFERENCES courses(id)
+  FOREIGN KEY (topic_id) REFERENCES topics(id)
 );
 
 CREATE TABLE submissions (
@@ -39,11 +58,23 @@ CREATE TABLE submissions (
   FOREIGN KEY (student_id) REFERENCES users(student_id)
 );
 
+-- Mock Data
 INSERT INTO users (id, student_id, password, name, role) VALUES ('u1', '12345', '12345', 'สมชาย เรียนดี', 'student');
 INSERT INTO users (id, student_id, password, name, role) VALUES ('u2', 'admin', 'admin123', 'ครูสมปอง', 'admin');
 
-INSERT INTO courses (id, title, type, aksorn_url) VALUES ('c1', 'เซตและการดำเนินการ', 'basic', 'https://onlearn.aksorn.com/aksorn-on-learn?permission=license');
-INSERT INTO courses (id, title, type, aksorn_url) VALUES ('c2', 'ตรรกศาสตร์', 'additional', 'https://onlearn.aksorn.com/aksorn-on-learn?permission=license');
+INSERT INTO grades (id, title, order_index) VALUES ('g4', 'มัธยมศึกษาปีที่ 4', 4);
 
-INSERT INTO assignments (id, course_id, title, description, due_date) VALUES ('a1', 'c1', 'แบบฝึกหัดเรื่องเซต 1.1', 'ทำแบบฝึกหัดหน้า 15-16 ถ่ายรูปส่ง', '2026-10-01T23:59:59Z');
-INSERT INTO assignments (id, course_id, title, description, due_date) VALUES ('a2', 'c2', 'แบบฝึกหัดตรรกศาสตร์', 'ทำใบงานตรรกศาสตร์ที่แจกให้', '2026-10-05T23:59:59Z');
+-- บทเรียน ม.4
+INSERT INTO chapters (id, grade_id, title, type, order_index) VALUES ('ch1', 'g4', 'เซต', 'basic', 1);
+INSERT INTO chapters (id, grade_id, title, type, order_index) VALUES ('ch2', 'g4', 'ตรรกศาสตร์', 'additional', 2);
+
+-- หัวข้อย่อย บทที่ 1 เซต
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_1', 'ch1', '1.1 ความหมายและสัญลักษณ์ของเซต', 1, '/content/m4/set/1.1.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t1_2', 'ch1', '1.2 การดำเนินการระหว่างเซต', 2, '/content/m4/set/1.2.md');
+
+-- หัวข้อย่อย บทที่ 2 ตรรกศาสตร์
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t2_1', 'ch2', '2.1 ประพจน์และตัวเชื่อม', 1, '/content/m4/logic/2.1.md');
+INSERT INTO topics (id, chapter_id, title, order_index, content_url) VALUES ('t2_2', 'ch2', '2.2 สัจนิรันดร์', 2, '/content/m4/logic/2.2.md');
+
+-- งาน
+INSERT INTO assignments (id, topic_id, title, description, due_date) VALUES ('a1', 't1_2', 'แบบฝึกหัดเรื่องเซต 1.2', 'ทำแบบฝึกหัดหน้า 15-16 ถ่ายรูปส่ง', '2026-10-01T23:59:59Z');

@@ -18,7 +18,7 @@ function App() {
         {/* Protected Student Routes */}
         <Route path="/" element={user ? <Layout user={user} onLogout={() => setUser(null)} /> : <Navigate to="/login" />}>
           <Route index element={<Dashboard user={user!} />} />
-          <Route path="course/:id" element={<Course />} />
+          <Route path="topic/:id" element={<Course />} />
           <Route path="assignment/:id" element={<Assignment user={user!} />} />
         </Route>
 

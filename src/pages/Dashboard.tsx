@@ -1,23 +1,22 @@
 import { Link } from 'react-router-dom';
-import { BookOpen, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { BookOpen, AlertCircle, CheckCircle2, ChevronRight } from 'lucide-react';
 
 export default function Dashboard({ user }: { user: any }) {
-  // Mock data for UI demonstration
-  const courses = [
-    { id: 'c1', title: 'เซตและการดำเนินการ', type: 'basic' },
-    { id: 'c2', title: 'ตรรกศาสตร์', type: 'additional' },
+  // Mock data representing chapters instead of raw courses
+  const chapters = [
+    { id: 'ch1', title: 'บทที่ 1: เซต', type: 'basic', topicCount: 2 },
+    { id: 'ch2', title: 'บทที่ 2: ตรรกศาสตร์', type: 'additional', topicCount: 2 },
   ];
 
   const assignments = [
-    { id: 'a1', course: 'เซตและการดำเนินการ', title: 'แบบฝึกหัดเรื่องเซต 1.1', status: 'missing', dueDate: '2026-10-01' },
-    { id: 'a2', course: 'ตรรกศาสตร์', title: 'แบบฝึกหัดตรรกศาสตร์', status: 'pending', dueDate: '2026-10-05' },
+    { id: 'a1', topic: '1.2 การดำเนินการระหว่างเซต', title: 'แบบฝึกหัดเรื่องเซต 1.2', status: 'missing', dueDate: '2026-10-01' },
   ];
 
   return (
     <div className="space-y-8">
       <header>
         <h1 className="text-2xl font-bold text-gray-800">สวัสดี, {user.name} 👋</h1>
-        <p className="text-gray-500">นี่คือภาพรวมการเรียนและงานของคุณ</p>
+        <p className="text-gray-500">ยินดีต้อนรับสู่ห้องเรียนออนไลน์</p>
       </header>
 
       {/* Status Cards */}
@@ -32,33 +31,32 @@ export default function Dashboard({ user }: { user: any }) {
         <div className="bg-yellow-50 border border-yellow-100 p-6 rounded-2xl flex items-center justify-between">
           <div>
             <p className="text-yellow-600 font-medium">รอครูตรวจ (Pending)</p>
-            <h2 className="text-3xl font-bold text-yellow-700 mt-1">1 งาน</h2>
+            <h2 className="text-3xl font-bold text-yellow-700 mt-1">0 งาน</h2>
           </div>
           <CheckCircle2 className="text-yellow-300" size={48} />
         </div>
       </div>
 
-      {/* Courses */}
+      {/* Chapters */}
       <section>
-        <h2 className="text-xl font-bold text-gray-800 mb-4">บทเรียนของคุณ (Courses)</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-4">บทเรียนของคุณ (มัธยมศึกษาปีที่ 4)</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {courses.map(course => (
-            <Link 
-              key={course.id} 
-              to={`/course/${course.id}`}
-              className="group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition hover:border-pink-200 block"
-            >
+          {chapters.map(chapter => (
+            <div key={chapter.id} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
               <div className="flex justify-between items-start mb-4">
                 <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  course.type === 'basic' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'
+                  chapter.type === 'basic' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'
                 }`}>
-                  {course.type === 'basic' ? 'คณิตศาสตร์พื้นฐาน' : 'คณิตศาสตร์เพิ่มเติม'}
+                  {chapter.type === 'basic' ? 'คณิตศาสตร์พื้นฐาน' : 'คณิตศาสตร์เพิ่มเติม'}
                 </div>
-                <BookOpen className="text-gray-300 group-hover:text-pink-400 transition" />
+                <BookOpen className="text-gray-300" />
               </div>
-              <h3 className="text-lg font-bold text-gray-800">{course.title}</h3>
-              <p className="text-gray-500 text-sm mt-2">คลิกเพื่อเข้าสู่บทเรียนและส่งงาน</p>
-            </Link>
+              <h3 className="text-lg font-bold text-gray-800">{chapter.title}</h3>
+              <p className="text-gray-500 text-sm mt-2 mb-4">มีทั้งหมด {chapter.topicCount} หัวข้อย่อย</p>
+              <div className="text-sm font-medium text-pink-500 flex items-center">
+                เลือกหัวข้อย่อยจากเมนูด้านซ้ายเพื่อเริ่มเรียน <ChevronRight size={16} />
+              </div>
+            </div>
           ))}
         </div>
       </section>
@@ -68,27 +66,27 @@ export default function Dashboard({ user }: { user: any }) {
         <h2 className="text-xl font-bold text-gray-800 mb-4">สถานะงาน (Assignments)</h2>
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           {assignments.map((assignment, index) => (
-            <div key={assignment.id} className={`p-4 flex items-center justify-between ${index !== 0 ? 'border-t border-gray-50' : ''}`}>
+            <div key={assignment.id} className={`p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${index !== 0 ? 'border-t border-gray-50' : ''}`}>
               <div>
                 <h4 className="font-medium text-gray-800">{assignment.title}</h4>
-                <p className="text-sm text-gray-500">วิชา: {assignment.course} | กำหนดส่ง: {assignment.dueDate}</p>
+                <p className="text-sm text-gray-500">หัวข้อ: {assignment.topic} | กำหนดส่ง: {assignment.dueDate}</p>
               </div>
               <div className="flex items-center gap-4">
                 {assignment.status === 'missing' && (
-                  <span className="px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-medium">ยังไม่ส่ง</span>
-                )}
-                {assignment.status === 'pending' && (
-                  <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">รอตรวจ</span>
+                  <span className="px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-medium whitespace-nowrap">ยังไม่ส่ง</span>
                 )}
                 <Link 
                   to={`/assignment/${assignment.id}`}
-                  className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg text-sm font-medium transition"
+                  className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg text-sm font-medium transition whitespace-nowrap"
                 >
                   ดูรายละเอียด / ส่งงาน
                 </Link>
               </div>
             </div>
           ))}
+          {assignments.length === 0 && (
+            <div className="p-8 text-center text-gray-500">ไม่มีงานในระบบ</div>
+          )}
         </div>
       </section>
     </div>

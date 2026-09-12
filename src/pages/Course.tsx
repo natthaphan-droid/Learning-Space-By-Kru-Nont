@@ -10,13 +10,15 @@ export default function Course() {
   const { id } = useParams();
   const [content, setContent] = useState<string>('กำลังโหลดเนื้อหา...');
 
-  // Mock course data matching schema
-  const courses: Record<string, any> = {
-    'c1': { id: 'c1', title: 'เซตและการดำเนินการ', type: 'basic', content_url: '/content/courses/c1.md' },
-    'c2': { id: 'c2', title: 'ตรรกศาสตร์', type: 'additional', content_url: '/content/courses/c2.md' }
+  // Mock topic data matching new schema
+  const topics: Record<string, any> = {
+    't1_1': { id: 't1_1', title: '1.1 ความหมายและสัญลักษณ์', type: 'basic', content_url: '/content/m4/set/1.1.md' },
+    't1_2': { id: 't1_2', title: '1.2 การดำเนินการระหว่างเซต', type: 'basic', content_url: '/content/m4/set/1.2.md' },
+    't2_1': { id: 't2_1', title: '2.1 ประพจน์และตัวเชื่อม', type: 'additional', content_url: '/content/m4/logic/2.1.md' },
+    't2_2': { id: 't2_2', title: '2.2 สัจนิรันดร์', type: 'additional', content_url: '/content/m4/logic/2.2.md' }
   };
   
-  const course = id && courses[id] ? courses[id] : courses['c1'];
+  const course = id && topics[id] ? topics[id] : topics['t1_1'];
 
   useEffect(() => {
     fetch(course.content_url)
