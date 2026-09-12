@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Course from './pages/Course';
 import Assignment from './pages/Assignment';
+import Tasks from './pages/Tasks';
+import Grades from './pages/Grades';
 import Admin from './pages/Admin';
 import Layout from './components/Layout';
 
@@ -20,6 +22,8 @@ function App() {
           <Route index element={<Dashboard user={user!} />} />
           <Route path="topic/:id" element={<Course />} />
           <Route path="assignment/:id" element={<Assignment user={user!} />} />
+          <Route path="tasks" element={<Tasks />} />
+          <Route path="grades" element={<Grades />} />
         </Route>
 
         {/* Protected Admin Routes */}

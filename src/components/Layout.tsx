@@ -55,14 +55,20 @@ export default function Layout({ user, onLogout }: LayoutProps) {
         
         <div className="flex items-center gap-4">
           <Link to="/" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium">
-            <LayoutDashboard size={16} /> Dashboard
+            <LayoutDashboard size={16} /> เรียนออนไลน์
+          </Link>
+          <Link to="/tasks" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium">
+            <BookOpen size={16} /> ส่งงาน
+          </Link>
+          <Link to="/grades" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium">
+            <Settings size={16} /> ดูคะแนน
           </Link>
           {user.role === 'admin' && (
-            <Link to="/admin" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium">
+            <Link to="/admin" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium border-l border-gray-200 pl-4">
               <Settings size={16} /> Admin
             </Link>
           )}
-          <div className="h-6 w-px bg-gray-200 hidden sm:block"></div>
+          <div className="h-6 w-px bg-gray-200 hidden sm:block ml-2"></div>
           <span className="text-gray-600 font-medium text-sm">{user.name}</span>
           <button 
             onClick={onLogout}
