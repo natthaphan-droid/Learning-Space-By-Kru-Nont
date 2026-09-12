@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
@@ -7,17 +7,16 @@ import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 
 export default function Course() {
-  // const { id } = useParams(); // Typically used to fetch correct course data
-  
+  const { id } = useParams();
   const [content, setContent] = useState<string>('กำลังโหลดเนื้อหา...');
 
-  // Mock course data
-  const course = {
-    id: 'c1',
-    title: 'เซตและการดำเนินการ',
-    type: 'basic',
-    content_url: '/content/courses/c1.md'
+  // Mock course data matching schema
+  const courses: Record<string, any> = {
+    'c1': { id: 'c1', title: 'เซตและการดำเนินการ', type: 'basic', content_url: '/content/courses/c1.md' },
+    'c2': { id: 'c2', title: 'ตรรกศาสตร์', type: 'additional', content_url: '/content/courses/c2.md' }
   };
+  
+  const course = id && courses[id] ? courses[id] : courses['c1'];
 
   useEffect(() => {
     fetch(course.content_url)
