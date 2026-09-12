@@ -84,14 +84,14 @@ export default function Course() {
         <p className="text-gray-600 mb-6">ดาวน์โหลดใบงาน A4 ไปฝึกทำเพื่อเช็คความเข้าใจ แล้วคลิกส่งงานเพื่อดูเฉลยครับ</p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link 
-            to={`/worksheet/${course.id}`}
-            target="_blank"
+          <a 
+            href={`/worksheets/${course.id}.pdf`}
+            download
             className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-pink-400 text-pink-600 hover:bg-pink-50 rounded-xl font-bold transition shadow-sm w-full sm:w-auto justify-center"
           >
             <Download size={20} />
             เปิด/ดาวน์โหลดใบงาน (PDF)
-          </Link>
+          </a>
           
           {!isSubmitted ? (
             <button 
