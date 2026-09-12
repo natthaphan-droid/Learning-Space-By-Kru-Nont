@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import { ArrowLeft, BookOpen, Download, Send } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -64,19 +64,23 @@ export default function Course() {
         </ReactMarkdown>
       </div>
       
-      {/* Assignments for this course */}
-      <div className="mt-8">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">งานในบทเรียนนี้</h3>
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex justify-between items-center hover:border-pink-200 transition">
-          <div>
-            <h4 className="font-medium text-gray-800">แบบฝึกหัดเรื่องเซต 1.1</h4>
-            <p className="text-sm text-gray-500 mt-1">กำหนดส่ง: 2026-10-01</p>
-          </div>
+      {/* Worksheet Section */}
+      <div className="mt-8 bg-pink-50 rounded-2xl border border-pink-100 p-8 text-center shadow-sm">
+        <h3 className="text-xl font-bold text-gray-800 mb-2">ถึงเวลา "ลองทำดู!" ✍️</h3>
+        <p className="text-gray-600 mb-6">ดาวน์โหลดใบงาน A4 ไปฝึกทำเพื่อเช็คความเข้าใจ แล้วถ่ายรูปส่งครูได้เลยครับ</p>
+        
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-pink-400 text-pink-600 hover:bg-pink-50 rounded-xl font-bold transition shadow-sm w-full sm:w-auto justify-center">
+            <Download size={20} />
+            ดาวน์โหลดใบงาน (PDF)
+          </button>
+          
           <Link 
-            to="/assignment/a1"
-            className="px-4 py-2 bg-pink-400 hover:bg-pink-500 text-white rounded-lg text-sm font-medium transition"
+            to={`/assignment/a_${course.id}`} // Mock assignment ID mapping
+            className="flex items-center gap-2 px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-bold transition shadow-sm w-full sm:w-auto justify-center"
           >
-            ส่งงาน
+            <Send size={20} />
+            ส่งใบงานชิ้นนี้
           </Link>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LogOut, BookOpen, LayoutDashboard, Settings, Menu } from 'lucide-react';
+import { LogOut, BookOpen, Settings, Menu, MessageSquare, Megaphone, FileText } from 'lucide-react';
 import { useState } from 'react';
 
 interface LayoutProps {
@@ -7,43 +7,16 @@ interface LayoutProps {
   onLogout: () => void;
 }
 
-// Mock Curriculum Data for Sidebar
-const curriculum = [
-  {
-    grade: 'มัธยมศึกษาปีที่ 4',
-    chapters: [
-      {
-        id: 'ch1',
-        title: 'บทที่ 1: เซต',
-        topics: [
-          { id: 't1_1', title: '1.1 ทำความรู้จักกับเซต' },
-          { id: 't1_2', title: '1.2 วิธีการเขียนเซต' },
-          { id: 't1_3', title: '1.3 ชนิดของเซต' },
-          { id: 't1_4', title: '1.4 การเปรียบเทียบเซต' },
-          { id: 't1_5', title: '1.5 สับเซต' },
-          { id: 't1_6', title: '1.6 เพาเวอร์เซต' },
-          { id: 't1_7', title: '1.7 แผนภาพเวนน์-ออยเลอร์' },
-          { id: 't1_8', title: '1.8 ยูเนียน & อินเตอร์เซกชัน' },
-          { id: 't1_9', title: '1.9 คอมพลีเมนต์ & ผลต่าง' },
-          { id: 't1_10', title: '1.10 การหาจำนวนสมาชิก (2 วง)' },
-          { id: 't1_11', title: '1.11 การหาจำนวนสมาชิก (3 วง)' },
-        ]
-      },
-      {
-        id: 'ch2',
-        title: 'บทที่ 2: ตรรกศาสตร์',
-        topics: [
-          { id: 't2_1', title: '2.1 ประพจน์และตัวเชื่อม' },
-          { id: 't2_2', title: '2.2 สัจนิรันดร์' },
-        ]
-      }
-    ]
-  }
-];
-
 export default function Layout({ user, onLogout }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
+
+  const menuItems = [
+    { path: '/', icon: <Megaphone size={20} />, label: 'หน้าแรก' },
+    { path: '/learn', icon: <BookOpen size={20} />, label: 'เรียนออนไลน์' },
+    { path: '/tasks', icon: <FileText size={20} />, label: 'ส่งงาน' },
+    { path: '/contact', icon: <MessageSquare size={20} />, label: 'สอบถามข้อมูล' },
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-mallow-bg">
@@ -64,15 +37,6 @@ export default function Layout({ user, onLogout }: LayoutProps) {
         </div>
         
         <div className="flex items-center gap-4">
-          <Link to="/" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium">
-            <LayoutDashboard size={16} /> เรียนออนไลน์
-          </Link>
-          <Link to="/tasks" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium">
-            <BookOpen size={16} /> ส่งงาน
-          </Link>
-          <Link to="/grades" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium">
-            <Settings size={16} /> ดูคะแนน
-          </Link>
           {user.role === 'admin' && (
             <Link to="/admin" className="text-gray-600 hover:text-pink-500 hidden sm:flex items-center gap-1 text-sm font-medium border-l border-gray-200 pl-4">
               <Settings size={16} /> Admin
@@ -91,42 +55,27 @@ export default function Layout({ user, onLogout }: LayoutProps) {
       </nav>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
+        {/* Main Sidebar */}
         {sidebarOpen && (
           <aside className="w-64 bg-white border-r border-gray-100 flex-shrink-0 overflow-y-auto hidden md:block">
-            <div className="p-4">
-              <h2 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">สารบัญบทเรียน (สสวท.)</h2>
-              {curriculum.map((grade, gIdx) => (
-                <div key={gIdx} className="mb-6">
-                  <h3 className="font-bold text-pink-500 mb-2">{grade.grade}</h3>
-                  <div className="space-y-4 pl-2">
-                    {grade.chapters.map(chapter => (
-                      <div key={chapter.id}>
-                        <h4 className="font-medium text-gray-800 text-sm mb-1">{chapter.title}</h4>
-                        <ul className="space-y-1 pl-2 border-l-2 border-gray-100">
-                          {chapter.topics.map(topic => {
-                            const isActive = location.pathname === `/topic/${topic.id}`;
-                            return (
-                              <li key={topic.id}>
-                                <Link 
-                                  to={`/topic/${topic.id}`}
-                                  className={`block px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                                    isActive 
-                                      ? 'bg-pink-50 text-pink-600 font-medium' 
-                                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                  }`}
-                                >
-                                  {topic.title}
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+            <div className="p-4 space-y-2 mt-4">
+              {menuItems.map((item) => {
+                const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
+                return (
+                  <Link 
+                    key={item.path}
+                    to={item.path}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+                      isActive 
+                        ? 'bg-pink-50 text-pink-600 font-bold' 
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium'
+                    }`}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
           </aside>
         )}
