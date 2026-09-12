@@ -1,58 +1,63 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, BookOpen } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 export default function Course() {
-  // const { id } = useParams();
+  // const { id } = useParams(); // Typically used to fetch correct course data
   
+  const [content, setContent] = useState<string>('กำลังโหลดเนื้อหา...');
+
   // Mock course data
   const course = {
     id: 'c1',
     title: 'เซตและการดำเนินการ',
     type: 'basic',
-    aksorn_url: 'https://onlearn.aksorn.com/aksorn-on-learn?permission=license'
+    content_url: '/content/courses/c1.md'
   };
 
+  useEffect(() => {
+    fetch(course.content_url)
+      .then(res => res.text())
+      .then(text => setContent(text))
+      .catch(() => setContent('ไม่สามารถโหลดเนื้อหาได้ กรุณาลองใหม่อีกครั้ง'));
+  }, [course.content_url]);
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-4xl mx-auto">
       <Link to="/" className="inline-flex items-center text-gray-500 hover:text-pink-500 transition">
         <ArrowLeft size={16} className="mr-1" /> กลับไปหน้าแรก
       </Link>
       
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-start border-b border-gray-100 pb-6">
         <div>
           <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium mb-3 inline-block">
             คณิตศาสตร์พื้นฐาน
           </span>
           <h1 className="text-3xl font-bold text-gray-800">{course.title}</h1>
         </div>
-        <a 
-          href={course.aksorn_url} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 bg-pink-50 text-pink-600 rounded-lg hover:bg-pink-100 transition font-medium"
-        >
-          เปิดในแท็บใหม่ <ExternalLink size={16} />
-        </a>
+        <div className="bg-pink-50 p-3 rounded-full text-pink-400">
+          <BookOpen size={24} />
+        </div>
       </div>
 
-      {/* Aksorn Embed Iframe */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm h-[600px] flex flex-col">
-        <div className="bg-gray-50 border-b border-gray-200 p-3 text-sm text-gray-500 flex justify-between">
-          <span>เนื้อหาบทเรียนจาก Aksorn On-Learn</span>
-          <span>(หากเนื้อหาไม่แสดง กรุณากด "เปิดในแท็บใหม่" มุมขวาบน)</span>
-        </div>
-        <iframe 
-          src={course.aksorn_url} 
-          className="w-full flex-1"
-          title="Aksorn Course Content"
-          sandbox="allow-scripts allow-same-origin allow-popups"
-        ></iframe>
+      {/* Markdown Content */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm prose prose-pink max-w-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg">
+        <ReactMarkdown 
+          remarkPlugins={[remarkMath]} 
+          rehypePlugins={[rehypeKatex]}
+        >
+          {content}
+        </ReactMarkdown>
       </div>
       
       {/* Assignments for this course */}
       <div className="mt-8">
         <h3 className="text-xl font-bold text-gray-800 mb-4">งานในบทเรียนนี้</h3>
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex justify-between items-center">
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex justify-between items-center hover:border-pink-200 transition">
           <div>
             <h4 className="font-medium text-gray-800">แบบฝึกหัดเรื่องเซต 1.1</h4>
             <p className="text-sm text-gray-500 mt-1">กำหนดส่ง: 2026-10-01</p>

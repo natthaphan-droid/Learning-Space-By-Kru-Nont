@@ -11,13 +11,18 @@
   },
   "dependencies": {
     "hono": "^4.13.7",
+    "katex": "^0.18.7",
     "lucide-react": "^1.45.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-router-dom": "^7.18.3"
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.18.3",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260911.1",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
